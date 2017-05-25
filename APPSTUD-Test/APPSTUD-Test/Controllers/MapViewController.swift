@@ -74,6 +74,7 @@ class MapViewController: BaseViewController, LocationUpdateProtocol {
             //Start request and callback with isRuesting = false to start new request
             if let curLocaiton = currentLocation {
                 let location = Location(lat: curLocaiton.latitude, long: curLocaiton.longitude)
+                showLoadingIndicator()
                 APIConnectionManager.shared.getPlacesNear(location: location, type: "bar", radius: 2000, success: { [weak self] places in
                     self?.handleResponsePlaces(places: places)
                 })
@@ -86,6 +87,7 @@ class MapViewController: BaseViewController, LocationUpdateProtocol {
         if !isRequesting {
             isRequesting = true
             if let input = inputTextField.text {
+                CoordinatorManager.shared.currentText = input
                 APIConnectionManager.shared.searchPlaces(input: input, success: { [weak self] (places) in
                     self?.handleResponsePlaces(places: places)
                 })
@@ -100,9 +102,11 @@ class MapViewController: BaseViewController, LocationUpdateProtocol {
             mapView.removeAnnotations(mapView.annotations)
             for place in places {
                 let annotation = ASAnnotation(coordinate: CLLocationCoordinate2D(latitude: place.lat, longitude: place.long))
+                annotation.imageUrl = place.photoURL
                 mapView.addAnnotation(annotation)
             }
             inputTextField.resignFirstResponder()
+            hideLoadingIndicator()
         }
     }
     
@@ -128,6 +132,7 @@ class MapViewController: BaseViewController, LocationUpdateProtocol {
     func locationUpdate(location: CLLocation) {
         currentLocation = location.coordinate
         ASLocationManager.shared.stopLocationService()
+        CoordinatorManager.shared.currentLocation = currentLocation
         validateViewDisplay()
         startRequestService()
     }
@@ -160,19 +165,29 @@ extension MapViewController: MKMapViewDelegate {
         } else {
             annotationView?.annotation = annotation
         }
+        let round: CGFloat = 60
+        let rect = CGRect(x: 0, y: 0, width: round, height:  round)
+        let imageView = UIImageView(frame: rect)
+        imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFit
+        annotationView?.addSubview(imageView)
+        if let ano = annotation as? ASAnnotation {
+            if let urlString = ano.imageUrl {
+                if let url = URL(string: urlString) {
+                     let replaceImage = UIImage(named: "No_Image_Available")
+                    imageView.af_setImage(withURL: url, placeholderImage: replaceImage, filter: nil, progress: nil, progressQueue: DispatchQueue.global(qos: .default), imageTransition: .crossDissolve(0.5), runImageTransitionIfCached: true, completion: { (response) in
+                        if let im = response.result.value {
+                            Utils.runOnMainThread {
+                                imageView.image = im
+                            }
+                        }
+                    })
+                }
+            }
+        }
         
-//        let imView = UIImageView(frame: (annotationView?.frame)!)
-//        
-//        
-//        imView.af_setImage(withURL: url, placeholderImage: nil, filter: nil, progress: nil, progressQueue: DispatchQueue.global(qos: .default), imageTransition: .crossDissolve(0.5), runImageTransitionIfCached: true, completion: { [weak self] (response) in
-//            if let sf = self {
-//                if let im = response.result.value {
-//                    sf.barImageView.image = im
-//                }
-//            }
-//        })
-        annotationView?.image = UIImage(named: "favicon")
-        annotationView?.fullyRound((annotationView?.frame.size.width)!, borderColor: UIColor.black, borderWidth: 1)
+        
+        annotationView?.fullyRound(round, borderColor: UIColor.black, borderWidth: 1)
         return annotationView
     }
 }

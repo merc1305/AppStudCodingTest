@@ -14,15 +14,15 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="204"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IYt-pW-1HK" id="otr-Tv-q28">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="204"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="203"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="llf-yf-Xgg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PaO-YA-Ved">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="20" y="0.0" width="335" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -31,15 +31,22 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="Bon-mv-mmN"/>
-                            <constraint firstItem="PaO-YA-Ved" firstAttribute="leading" secondItem="llf-yf-Xgg" secondAttribute="leading" id="Ew5-iJ-RCt"/>
+                            <constraint firstItem="PaO-YA-Ved" firstAttribute="leading" secondItem="llf-yf-Xgg" secondAttribute="leading" constant="20" id="Ew5-iJ-RCt"/>
                             <constraint firstItem="PaO-YA-Ved" firstAttribute="height" secondItem="llf-yf-Xgg" secondAttribute="height" id="oCn-yC-89N"/>
                             <constraint firstItem="PaO-YA-Ved" firstAttribute="top" secondItem="llf-yf-Xgg" secondAttribute="top" id="qvE-2W-nwY"/>
-                            <constraint firstAttribute="trailing" secondItem="PaO-YA-Ved" secondAttribute="trailing" id="uyi-yw-Jdl"/>
+                            <constraint firstAttribute="trailing" secondItem="PaO-YA-Ved" secondAttribute="trailing" constant="20" id="uyi-yw-Jdl"/>
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JHk-d1-BmW">
-                        <rect key="frame" x="0.0" y="40" width="375" height="163.5"/>
+                        <rect key="frame" x="0.0" y="40" width="375" height="163"/>
                     </imageView>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="qGb-WO-Kho">
+                        <rect key="frame" x="177" y="92" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="Pg0-XF-WfI"/>
+                            <constraint firstAttribute="height" constant="20" id="pSo-Qn-r7d"/>
+                        </constraints>
+                    </activityIndicatorView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="JHk-d1-BmW" firstAttribute="top" secondItem="llf-yf-Xgg" secondAttribute="bottom" id="OOb-5h-aMd"/>
@@ -47,13 +54,16 @@
                     <constraint firstItem="JHk-d1-BmW" firstAttribute="leading" secondItem="otr-Tv-q28" secondAttribute="leading" id="Wrj-Hu-64M"/>
                     <constraint firstAttribute="bottom" secondItem="JHk-d1-BmW" secondAttribute="bottom" id="bC4-yy-tAd"/>
                     <constraint firstAttribute="trailing" secondItem="JHk-d1-BmW" secondAttribute="trailing" id="e7R-nq-gPC"/>
+                    <constraint firstItem="qGb-WO-Kho" firstAttribute="centerY" secondItem="otr-Tv-q28" secondAttribute="centerY" id="gIX-Z5-xso"/>
                     <constraint firstItem="llf-yf-Xgg" firstAttribute="top" secondItem="otr-Tv-q28" secondAttribute="top" id="iVL-uC-8Hw"/>
                     <constraint firstAttribute="trailing" secondItem="llf-yf-Xgg" secondAttribute="trailing" id="sfi-TL-hQ1"/>
+                    <constraint firstItem="qGb-WO-Kho" firstAttribute="centerX" secondItem="otr-Tv-q28" secondAttribute="centerX" id="ztQ-HN-L8T"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="barImageView" destination="JHk-d1-BmW" id="hF4-GS-yb4"/>
                 <outlet property="barTitleLabel" destination="PaO-YA-Ved" id="bi7-Oe-WMd"/>
+                <outlet property="indicator" destination="qGb-WO-Kho" id="apN-wf-Jdh"/>
                 <outlet property="viewBgTitle" destination="llf-yf-Xgg" id="e3v-5n-Kbv"/>
             </connections>
             <point key="canvasLocation" x="47" y="-83"/>

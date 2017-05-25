@@ -27,7 +27,7 @@ class ListPlaceViewController: BaseViewController {
         refreshControl?.tintColor = UIColor.blue
         refreshControl?.addTarget(self, action: #selector(self.refreshData), for: .valueChanged)
         listPlacesTable.addSubview(refreshControl!)
-        listPlacesTable.estimatedRowHeight = 100
+        listPlacesTable.estimatedRowHeight = 170
         listPlacesTable.register(UINib(nibName: cellIdentifier, bundle: nil), forCellReuseIdentifier: cellIdentifier)
     }
     
@@ -58,10 +58,12 @@ class ListPlaceViewController: BaseViewController {
     }
     
     private func replaceNewDatas(places: [Place]) {
-        isRequesting = false
-        CoordinatorManager.shared.places = places
-        listPlacesTable.reloadData()
-        refreshControl?.endRefreshing()
+        Utils.runOnMainThread {
+            isRequesting = false
+            CoordinatorManager.shared.places = places
+            listPlacesTable.reloadData()
+            refreshControl?.endRefreshing()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -90,7 +92,7 @@ extension ListPlaceViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 170
     }
     
 }

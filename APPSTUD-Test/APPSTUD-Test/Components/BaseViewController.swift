@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SVProgressHUD
 
 class BaseViewController: UIViewController {
     
@@ -18,9 +19,13 @@ class BaseViewController: UIViewController {
     
     func setupUI() {}
     
-    func showLoadingIndicator() {}
+    func showLoadingIndicator() {
+        SVProgressHUD.show()
+    }
     
-    func hideLoadingIndicator() {}
+    func hideLoadingIndicator() {
+        SVProgressHUD.dismiss()
+    }
     
     @objc
     func startRequestService() {}
