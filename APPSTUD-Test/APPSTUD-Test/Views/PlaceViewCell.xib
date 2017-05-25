@@ -1,16 +1,48 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </view>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlaceViewCell" rowHeight="204" id="IYt-pW-1HK" customClass="PlaceViewCell" customModule="APPSTUD_Test" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="204"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IYt-pW-1HK" id="otr-Tv-q28">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="204"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PaO-YA-Ved">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="21"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JHk-d1-BmW">
+                        <rect key="frame" x="0.0" y="21" width="375" height="182.5"/>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="JHk-d1-BmW" firstAttribute="leading" secondItem="otr-Tv-q28" secondAttribute="leading" id="Wrj-Hu-64M"/>
+                    <constraint firstItem="PaO-YA-Ved" firstAttribute="leading" secondItem="otr-Tv-q28" secondAttribute="leading" id="XEg-6G-uYi"/>
+                    <constraint firstAttribute="bottom" secondItem="JHk-d1-BmW" secondAttribute="bottom" id="bC4-yy-tAd"/>
+                    <constraint firstAttribute="trailing" secondItem="PaO-YA-Ved" secondAttribute="trailing" id="c8p-em-3Ir"/>
+                    <constraint firstAttribute="trailing" secondItem="JHk-d1-BmW" secondAttribute="trailing" id="e7R-nq-gPC"/>
+                    <constraint firstItem="JHk-d1-BmW" firstAttribute="top" secondItem="PaO-YA-Ved" secondAttribute="bottom" id="i3P-Eg-U0a"/>
+                    <constraint firstAttribute="top" secondItem="PaO-YA-Ved" secondAttribute="top" id="xik-e0-eZR"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="barImageView" destination="JHk-d1-BmW" id="hF4-GS-yb4"/>
+                <outlet property="barTitleLabel" destination="PaO-YA-Ved" id="bi7-Oe-WMd"/>
+            </connections>
+            <point key="canvasLocation" x="47" y="-83"/>
+        </tableViewCell>
     </objects>
 </document>

@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,9 +20,24 @@
                     <view key="view" contentMode="scaleToFill" id="yLF-B5-60d">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="umG-f1-pNb">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="umG-f1-pNb" secondAttribute="trailing" id="9fg-yn-wye"/>
+                            <constraint firstAttribute="leading" secondItem="umG-f1-pNb" secondAttribute="leading" id="Hk3-Tt-ApV"/>
+                            <constraint firstItem="umG-f1-pNb" firstAttribute="top" secondItem="i1r-D4-gor" secondAttribute="bottom" id="O3b-ZE-1e3"/>
+                            <constraint firstItem="CUi-5c-00y" firstAttribute="top" secondItem="umG-f1-pNb" secondAttribute="bottom" id="TxI-If-QKp"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="8Lf-40-dE1"/>
+                    <connections>
+                        <outlet property="listPlacesTable" destination="umG-f1-pNb" id="IP5-o1-bB6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="omB-U2-67d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -42,16 +58,46 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="lO5-mY-A7z">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wzq-Bn-jDo">
+                                <rect key="frame" x="311" y="554" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="Dre-bd-gNH"/>
+                                    <constraint firstAttribute="height" constant="50" id="eN7-N8-YsG"/>
+                                </constraints>
+                                <state key="normal" image="current_location"/>
+                                <connections>
+                                    <action selector="centerLocation:" destination="8X0-py-AMN" eventType="touchUpInside" id="0UR-tP-DGQ"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="No location found! Enter address to find " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8ke-5Q-ylO">
+                                <rect key="frame" x="16" y="74" width="343" height="35"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="aRL-wb-wh2"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="lO5-mY-A7z" firstAttribute="top" secondItem="fPJ-tD-zQK" secondAttribute="bottom" id="RDr-8W-XMM"/>
+                            <constraint firstItem="8ke-5Q-ylO" firstAttribute="top" secondItem="fPJ-tD-zQK" secondAttribute="bottom" constant="10" id="RZh-yb-8bz"/>
                             <constraint firstItem="lO5-mY-A7z" firstAttribute="leading" secondItem="BJj-7H-cHG" secondAttribute="leading" id="TZv-lP-J2r"/>
                             <constraint firstAttribute="trailing" secondItem="lO5-mY-A7z" secondAttribute="trailing" id="Uov-5J-j8n"/>
                             <constraint firstItem="93T-hX-HSg" firstAttribute="top" secondItem="lO5-mY-A7z" secondAttribute="bottom" id="WbC-De-9w7"/>
+                            <constraint firstItem="93T-hX-HSg" firstAttribute="top" secondItem="Wzq-Bn-jDo" secondAttribute="bottom" constant="14" id="atO-w8-RGj"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="8ke-5Q-ylO" secondAttribute="leading" id="dkY-y9-PAx"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Wzq-Bn-jDo" secondAttribute="trailing" constant="-2" id="omF-i6-iFA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8ke-5Q-ylO" secondAttribute="trailing" id="wWA-DK-n8H"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="sqm-TV-Tpp"/>
+                    <connections>
+                        <outlet property="inputTextField" destination="8ke-5Q-ylO" id="ng8-cK-lqz"/>
+                        <outlet property="mapView" destination="lO5-mY-A7z" id="aV9-oS-TJF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M98-nO-St2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -79,7 +125,7 @@
         <scene sceneID="IqE-fi-mR9">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MZe-gN-Rzt" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" id="EET-LI-VNb"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="map_icon" id="EET-LI-VNb"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="t6M-fg-OlJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -98,7 +144,7 @@
         <scene sceneID="RTp-ln-bav">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f0U-4P-B5V" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="List" id="pY4-M2-fd9"/>
+                    <tabBarItem key="tabBarItem" title="List" image="list_icon" id="pY4-M2-fd9"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dEM-cS-Xze">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -114,4 +160,9 @@
             <point key="canvasLocation" x="-290.39999999999998" y="69.715142428785612"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="current_location" width="50" height="50"/>
+        <image name="list_icon" width="12" height="12"/>
+        <image name="map_icon" width="12" height="12"/>
+    </resources>
 </document>
