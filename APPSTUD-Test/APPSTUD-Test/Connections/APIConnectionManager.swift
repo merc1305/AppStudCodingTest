@@ -22,6 +22,7 @@ enum URLName {
 class APIConnectionManager {
     static let shared = APIConnectionManager()
     
+    
     func urlString(urlName: URLName) -> String {
         switch urlName {
         case .SearchPlaceLocation:
@@ -39,6 +40,8 @@ class APIConnectionManager {
         }
         
     }
+    
+    
     
     //Get Bars around current user location with 2KMs
     func getPlacesNear(location: Location, type: String, radius: Double, success: (([Place]) -> Void)?) {

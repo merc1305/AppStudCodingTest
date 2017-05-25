@@ -69,6 +69,7 @@ class MapViewController: BaseViewController, LocationUpdateProtocol {
     
     
     override func startRequestService() {
+        super.startRequestService()
         if !isRequesting {
             isRequesting = true
             //Start request and callback with isRuesting = false to start new request
@@ -84,6 +85,7 @@ class MapViewController: BaseViewController, LocationUpdateProtocol {
     
 
     override func startRequestByName() {
+        super.startRequestByName()
         if !isRequesting {
             isRequesting = true
             if let input = inputTextField.text {
@@ -158,36 +160,18 @@ extension MapViewController: MKMapViewDelegate {
         {
             return nil
         }
-        var annotationView = self.mapView.dequeueReusableAnnotationView(withIdentifier: "Pin")
-        if annotationView == nil{
+        var annotationView = self.mapView.dequeueReusableAnnotationView(withIdentifier: "Pin") as? ASAnnotationView
+        if annotationView == nil {
             annotationView = ASAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
-            annotationView?.canShowCallout = false
         } else {
             annotationView?.annotation = annotation
         }
-        let round: CGFloat = 60
-        let rect = CGRect(x: 0, y: 0, width: round, height:  round)
-        let imageView = UIImageView(frame: rect)
-        imageView.layer.masksToBounds = true
-        imageView.contentMode = .scaleAspectFit
-        annotationView?.addSubview(imageView)
-        if let ano = annotation as? ASAnnotation {
-            if let urlString = ano.imageUrl {
-                if let url = URL(string: urlString) {
-                     let replaceImage = UIImage(named: "No_Image_Available")
-                    imageView.af_setImage(withURL: url, placeholderImage: replaceImage, filter: nil, progress: nil, progressQueue: DispatchQueue.global(qos: .default), imageTransition: .crossDissolve(0.5), runImageTransitionIfCached: true, completion: { (response) in
-                        if let im = response.result.value {
-                            Utils.runOnMainThread {
-                                imageView.image = im
-                            }
-                        }
-                    })
-                }
-            }
-        }
+        annotationView?.alreadyLoad = false
+        annotationView?.canShowCallout = false
+        annotationView?.layoutSubviews()
+        annotationView?.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
         
-        
-        annotationView?.fullyRound(round, borderColor: UIColor.black, borderWidth: 1)
+        annotationView?.fullyRound(60, borderColor: UIColor.black, borderWidth: 1)
         return annotationView
     }
 }
