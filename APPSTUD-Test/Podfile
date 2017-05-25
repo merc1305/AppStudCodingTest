@@ -8,6 +8,7 @@ target 'APPSTUD-Test' do
   pod 'Alamofire', '~> 4.0'
   pod 'AlamofireImage'
   pod 'AlamofireObjectMapper'
+  pod 'RealmSwift'
  
   # Pods for APPSTUD-Test
 
