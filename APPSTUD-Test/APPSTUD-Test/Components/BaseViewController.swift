@@ -25,4 +25,7 @@ class BaseViewController: UIViewController {
     @objc
     func startRequestService() {}
     
+    @objc
+    func startRequestByName() {}
+    
 }

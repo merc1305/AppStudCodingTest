@@ -9,17 +9,25 @@
 import Foundation
 import UIKit
 import AlamofireImage
+import Alamofire
 
 class PlaceViewCell: UITableViewCell {
     @IBOutlet weak var barTitleLabel: UILabel!
     @IBOutlet weak var barImageView: UIImageView!
+    @IBOutlet weak var viewBgTitle: UIView!
     
     override func awakeFromNib() {
         //Setup initial load from nib name
         barImageView.contentMode = .scaleAspectFill
+        let blurView =  getBlurryViewWithFrame(viewBgTitle.bounds, border: true)
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        viewBgTitle.insertSubview(blurView, at: 0);
+//        viewBgTitle.addConstraints(constraisBlur)
     }
     
     func setBarItem(bar: Place) {
+//        if let urlString = bar.photoURL?.replacingOccurrences(of: ":", with: "=") {
+//            let newString = urlString.replacingOccurrences(of: "//=", with: "//:")
         if let urlString = bar.photoURL {
             if let url = URL(string: urlString) {
                 barImageView.af_setImage(withURL: url, placeholderImage: nil, filter: nil, progress: nil, progressQueue: DispatchQueue.global(qos: .default), imageTransition: .crossDissolve(0.5), runImageTransitionIfCached: true, completion: { [weak self] (response) in
@@ -32,8 +40,8 @@ class PlaceViewCell: UITableViewCell {
                     }
                 })
             }
+            
         }
         barTitleLabel.text = bar.name ?? ""
     }
-    
 }

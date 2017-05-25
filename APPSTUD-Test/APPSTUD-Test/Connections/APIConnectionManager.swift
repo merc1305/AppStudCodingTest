@@ -30,7 +30,7 @@ class APIConnectionManager {
             return "https://maps.googleapis.com/maps/api/place/autocomplete/json"
         case .Photo(let reference):
             if reference != nil {
-                return "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key:\(APIKey)&photoreference:\(reference!)"
+                return "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=\(reference!)&key=\(APIKey)"
             } else {
                 return ""
             }

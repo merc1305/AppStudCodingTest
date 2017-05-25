@@ -7,3 +7,16 @@
 //
 
 import Foundation
+
+class Utils {
+    class func runOnMainThread(_ block_: ()->()) {
+        if Thread.isMainThread {
+            block_()
+        } else {
+            DispatchQueue.main.sync(execute: {
+                block_()
+            })
+        }
+    }
+}
+

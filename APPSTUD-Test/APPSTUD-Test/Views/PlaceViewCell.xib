@@ -17,30 +17,44 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="204"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PaO-YA-Ved">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="21"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="llf-yf-Xgg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PaO-YA-Ved">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="Bon-mv-mmN"/>
+                            <constraint firstItem="PaO-YA-Ved" firstAttribute="leading" secondItem="llf-yf-Xgg" secondAttribute="leading" id="Ew5-iJ-RCt"/>
+                            <constraint firstItem="PaO-YA-Ved" firstAttribute="height" secondItem="llf-yf-Xgg" secondAttribute="height" id="oCn-yC-89N"/>
+                            <constraint firstItem="PaO-YA-Ved" firstAttribute="top" secondItem="llf-yf-Xgg" secondAttribute="top" id="qvE-2W-nwY"/>
+                            <constraint firstAttribute="trailing" secondItem="PaO-YA-Ved" secondAttribute="trailing" id="uyi-yw-Jdl"/>
+                        </constraints>
+                    </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JHk-d1-BmW">
-                        <rect key="frame" x="0.0" y="21" width="375" height="182.5"/>
+                        <rect key="frame" x="0.0" y="40" width="375" height="163.5"/>
                     </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="JHk-d1-BmW" firstAttribute="top" secondItem="llf-yf-Xgg" secondAttribute="bottom" id="OOb-5h-aMd"/>
+                    <constraint firstItem="llf-yf-Xgg" firstAttribute="leading" secondItem="otr-Tv-q28" secondAttribute="leading" id="ReF-RP-s5j"/>
                     <constraint firstItem="JHk-d1-BmW" firstAttribute="leading" secondItem="otr-Tv-q28" secondAttribute="leading" id="Wrj-Hu-64M"/>
-                    <constraint firstItem="PaO-YA-Ved" firstAttribute="leading" secondItem="otr-Tv-q28" secondAttribute="leading" id="XEg-6G-uYi"/>
                     <constraint firstAttribute="bottom" secondItem="JHk-d1-BmW" secondAttribute="bottom" id="bC4-yy-tAd"/>
-                    <constraint firstAttribute="trailing" secondItem="PaO-YA-Ved" secondAttribute="trailing" id="c8p-em-3Ir"/>
                     <constraint firstAttribute="trailing" secondItem="JHk-d1-BmW" secondAttribute="trailing" id="e7R-nq-gPC"/>
-                    <constraint firstItem="JHk-d1-BmW" firstAttribute="top" secondItem="PaO-YA-Ved" secondAttribute="bottom" id="i3P-Eg-U0a"/>
-                    <constraint firstAttribute="top" secondItem="PaO-YA-Ved" secondAttribute="top" id="xik-e0-eZR"/>
+                    <constraint firstItem="llf-yf-Xgg" firstAttribute="top" secondItem="otr-Tv-q28" secondAttribute="top" id="iVL-uC-8Hw"/>
+                    <constraint firstAttribute="trailing" secondItem="llf-yf-Xgg" secondAttribute="trailing" id="sfi-TL-hQ1"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="barImageView" destination="JHk-d1-BmW" id="hF4-GS-yb4"/>
                 <outlet property="barTitleLabel" destination="PaO-YA-Ved" id="bi7-Oe-WMd"/>
+                <outlet property="viewBgTitle" destination="llf-yf-Xgg" id="e3v-5n-Kbv"/>
             </connections>
             <point key="canvasLocation" x="47" y="-83"/>
         </tableViewCell>

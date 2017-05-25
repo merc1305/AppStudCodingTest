@@ -75,14 +75,34 @@ class MapViewController: BaseViewController, LocationUpdateProtocol {
             if let curLocaiton = currentLocation {
                 let location = Location(lat: curLocaiton.latitude, long: curLocaiton.longitude)
                 APIConnectionManager.shared.getPlacesNear(location: location, type: "bar", radius: 2000, success: { [weak self] places in
-                    self?.isRequesting = false
-                    CoordinatorManager.shared.places = places
-                    for place in places {
-                        let annotation = ASAnnotation(coordinate: CLLocationCoordinate2D(latitude: place.lat, longitude: place.long))
-                        self?.mapView.addAnnotation(annotation)
-                    }
+                    self?.handleResponsePlaces(places: places)
                 })
             }
+        }
+    }
+    
+
+    override func startRequestByName() {
+        if !isRequesting {
+            isRequesting = true
+            if let input = inputTextField.text {
+                APIConnectionManager.shared.searchPlaces(input: input, success: { [weak self] (places) in
+                    self?.handleResponsePlaces(places: places)
+                })
+            }
+        }
+    }
+    
+    private func handleResponsePlaces(places: [Place]) {
+        isRequesting = false
+        CoordinatorManager.shared.places = places
+        Utils.runOnMainThread {
+            mapView.removeAnnotations(mapView.annotations)
+            for place in places {
+                let annotation = ASAnnotation(coordinate: CLLocationCoordinate2D(latitude: place.lat, longitude: place.long))
+                mapView.addAnnotation(annotation)
+            }
+            inputTextField.resignFirstResponder()
         }
     }
     
@@ -95,7 +115,7 @@ class MapViewController: BaseViewController, LocationUpdateProtocol {
     
     func startTimerRequest() {
         invalidateTimer()
-        timerStartRequest = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(startRequestService), userInfo: nil, repeats: false)
+        timerStartRequest = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(startRequestByName), userInfo: nil, repeats: false)
     }
     
     func invalidateTimer() {
@@ -114,12 +134,13 @@ class MapViewController: BaseViewController, LocationUpdateProtocol {
 }
 
 extension MapViewController: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.text?.isEmpty == false && textField.text?.replacingOccurrences(of: " " , with: "").characters.count != 0 {
             startTimerRequest()
         }
+        return true
     }
-
+    
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return true
