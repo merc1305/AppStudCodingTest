@@ -10,5 +10,7 @@ import Foundation
 import MapKit
 
 class ASAnnotationView: MKAnnotationView {
+    var viewBackground: UIView!
+    
     
 }

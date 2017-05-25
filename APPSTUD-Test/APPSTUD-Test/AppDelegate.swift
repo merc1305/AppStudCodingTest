@@ -15,14 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-//        APIConnectionManager.getPlacesNear(location: Location.init(lat: 10.823099, long: 106.629664), type: "bar", radius: 2000) { places in
-//            print(places)
-//        }
-        
-//        APIConnectionManager.sharedInstance().searchPlaces(input: "quan 4, sai gon") { places in
-//            print(places)
-//        }
-        
+        ASLocationManager.shared.requestLocationServiceIfNeeded()
         return true
     }
 

@@ -20,15 +20,20 @@ class PlaceViewCell: UITableViewCell {
     }
     
     func setBarItem(bar: Place) {
-        if let url = URL(string: "") {
-            barImageView.af_setImage(withURL: url, placeholderImage: nil, filter: nil, progress: nil, progressQueue: DispatchQueue.global(qos: .default), imageTransition: .crossDissolve(0.5), runImageTransitionIfCached: true, completion: { [weak self] (response) in
-                if let sf = self {
-                    if let im = response.result.value {
-                        
+        if let urlString = bar.photoURL {
+            if let url = URL(string: urlString) {
+                barImageView.af_setImage(withURL: url, placeholderImage: nil, filter: nil, progress: nil, progressQueue: DispatchQueue.global(qos: .default), imageTransition: .crossDissolve(0.5), runImageTransitionIfCached: true, completion: { [weak self] (response) in
+                    if let sf = self {
+                        if let im = response.result.value {
+                            sf.barImageView.image = im
+                        }
+                        print("response: \(response)")
+                        print("result: \(response.error?.localizedDescription)")
                     }
-                }
-            })
+                })
+            }
         }
+        barTitleLabel.text = bar.name ?? ""
     }
     
 }

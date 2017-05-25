@@ -22,4 +22,7 @@ class BaseViewController: UIViewController {
     
     func hideLoadingIndicator() {}
     
+    @objc
+    func startRequestService() {}
+    
 }

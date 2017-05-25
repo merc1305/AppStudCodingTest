@@ -26,7 +26,7 @@ class ListPlaceViewController: BaseViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("view didapplear")
+        listPlacesTable.reloadData()
     }
 }
 
@@ -42,6 +42,8 @@ extension ListPlaceViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! PlaceViewCell
+        let place = CoordinatorManager.shared.places[indexPath.row]
+        cell.setBarItem(bar: place)
         cell.selectionStyle = .none
         
         return cell

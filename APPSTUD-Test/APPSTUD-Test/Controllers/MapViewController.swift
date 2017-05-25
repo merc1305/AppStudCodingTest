@@ -16,7 +16,7 @@ class MapViewController: BaseViewController, LocationUpdateProtocol {
     private var currentLocation: CLLocationCoordinate2D?
     private var currentTextInput: String?
     
-//    private gesture: UITapGes
+    private var gesture: UIGestureRecognizer!
     
     var timerStartRequest: Timer?
     private var isRequesting = false
@@ -26,24 +26,31 @@ class MapViewController: BaseViewController, LocationUpdateProtocol {
         mapView.showsUserLocation = true
         mapView.delegate = self
         inputTextField.delegate = self
-        ASLocationManager.sharedInstance.locationUpdateDelegate = self
-        ASLocationManager.sharedInstance.startLocationService()
+        ASLocationManager.shared.locationUpdateDelegate = self
+        ASLocationManager.shared.startLocationService()
         validateViewDisplay()
+        
+        gesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(gesture)
     }
     
     
+    @objc
+    private func dismissKeyboard() {
+        inputTextField.resignFirstResponder()
+    }
+    
     private func validateViewDisplay() {
-        if ASLocationManager.sharedInstance.isLocationServiceAvailable() {
+        if ASLocationManager.shared.isLocationServiceAvailable() {
             if let curLocation = currentLocation {
                 mapView.setCenter(curLocation, animated: true)
-                let span = MKCoordinateSpanMake(1, 1)
+                let span = MKCoordinateSpanMake(0.1, 0.1)
                 let region = MKCoordinateRegion(center: curLocation, span: span)
                 mapView.setRegion(region, animated: true)
             }
             
             inputTextField.isHidden = true
             inputTextField.text = ""
-            startRequestService()
         } else { //Animate alternative view
             inputTextField.isHidden = false
             inputTextField.alpha = 0.0
@@ -61,18 +68,28 @@ class MapViewController: BaseViewController, LocationUpdateProtocol {
     }
     
     
-    @objc
-    private func startRequestService() {
+    override func startRequestService() {
         if !isRequesting {
             isRequesting = true
             //Start request and callback with isRuesting = false to start new request
+            if let curLocaiton = currentLocation {
+                let location = Location(lat: curLocaiton.latitude, long: curLocaiton.longitude)
+                APIConnectionManager.shared.getPlacesNear(location: location, type: "bar", radius: 2000, success: { [weak self] places in
+                    self?.isRequesting = false
+                    CoordinatorManager.shared.places = places
+                    for place in places {
+                        let annotation = ASAnnotation(coordinate: CLLocationCoordinate2D(latitude: place.lat, longitude: place.long))
+                        self?.mapView.addAnnotation(annotation)
+                    }
+                })
+            }
         }
     }
     
     
     
     @IBAction func centerLocation(_ sender: Any) {
-        ASLocationManager.sharedInstance.startLocationService()
+        ASLocationManager.shared.startLocationService()
     }
     
     
@@ -90,8 +107,9 @@ class MapViewController: BaseViewController, LocationUpdateProtocol {
     //Location update delegate: Return user current location
     func locationUpdate(location: CLLocation) {
         currentLocation = location.coordinate
-        ASLocationManager.sharedInstance.stopLocationService()
+        ASLocationManager.shared.stopLocationService()
         validateViewDisplay()
+        startRequestService()
     }
 }
 
@@ -110,7 +128,31 @@ extension MapViewController: UITextFieldDelegate {
 
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        return nil
+        if annotation is MKUserLocation
+        {
+            return nil
+        }
+        var annotationView = self.mapView.dequeueReusableAnnotationView(withIdentifier: "Pin")
+        if annotationView == nil{
+            annotationView = ASAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
+            annotationView?.canShowCallout = false
+        } else {
+            annotationView?.annotation = annotation
+        }
+        
+//        let imView = UIImageView(frame: (annotationView?.frame)!)
+//        
+//        
+//        imView.af_setImage(withURL: url, placeholderImage: nil, filter: nil, progress: nil, progressQueue: DispatchQueue.global(qos: .default), imageTransition: .crossDissolve(0.5), runImageTransitionIfCached: true, completion: { [weak self] (response) in
+//            if let sf = self {
+//                if let im = response.result.value {
+//                    sf.barImageView.image = im
+//                }
+//            }
+//        })
+        annotationView?.image = UIImage(named: "favicon")
+        annotationView?.fullyRound((annotationView?.frame.size.width)!, borderColor: UIColor.black, borderWidth: 1)
+        return annotationView
     }
 }
 

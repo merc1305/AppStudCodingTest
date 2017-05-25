@@ -31,6 +31,8 @@
 		36232D9B1ED6D30A0099E7A2 /* ASLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36232D9A1ED6D30A0099E7A2 /* ASLocationManager.swift */; };
 		36232D9F1ED6DBC20099E7A2 /* Distrit1.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 36232D9E1ED6DBC20099E7A2 /* Distrit1.gpx */; };
 		36232DA31ED6ECA60099E7A2 /* CoordinatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36232DA21ED6ECA60099E7A2 /* CoordinatorManager.swift */; };
+		36232DA71ED6F8B40099E7A2 /* ASAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36232DA61ED6F8B40099E7A2 /* ASAnnotation.swift */; };
+		36232DA91ED6FA520099E7A2 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36232DA81ED6FA520099E7A2 /* UIView+Extension.swift */; };
 		53C98D9CA055167AA316F4F2 /* Pods_APPSTUD_TestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0257062144893A5EA4589D3 /* Pods_APPSTUD_TestUITests.framework */; };
 		A3D030E1410AAC7061B9B96A /* Pods_APPSTUD_TestTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14944A1323EE4D441A263DBC /* Pods_APPSTUD_TestTests.framework */; };
 		A71BD6398560875C27911CF1 /* Pods_APPSTUD_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78051B8DB98BF7500713AB25 /* Pods_APPSTUD_Test.framework */; };
@@ -86,6 +88,8 @@
 		36232D9A1ED6D30A0099E7A2 /* ASLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASLocationManager.swift; sourceTree = "<group>"; };
 		36232D9E1ED6DBC20099E7A2 /* Distrit1.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Distrit1.gpx; sourceTree = "<group>"; };
 		36232DA21ED6ECA60099E7A2 /* CoordinatorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinatorManager.swift; sourceTree = "<group>"; };
+		36232DA61ED6F8B40099E7A2 /* ASAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAnnotation.swift; sourceTree = "<group>"; };
+		36232DA81ED6FA520099E7A2 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		4085214582AB4870D38F7978 /* Pods-APPSTUD-TestUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APPSTUD-TestUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-APPSTUD-TestUITests/Pods-APPSTUD-TestUITests.release.xcconfig"; sourceTree = "<group>"; };
 		78051B8DB98BF7500713AB25 /* Pods_APPSTUD_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APPSTUD_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8889E808070DE95F037B1488 /* Pods-APPSTUD-Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APPSTUD-Test.release.xcconfig"; path = "Pods/Target Support Files/Pods-APPSTUD-Test/Pods-APPSTUD-Test.release.xcconfig"; sourceTree = "<group>"; };
@@ -219,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				36232D7E1ED6BF960099E7A2 /* Utils.swift */,
+				36232DA81ED6FA520099E7A2 /* UIView+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -229,6 +234,7 @@
 				36232D7A1ED6BF7E0099E7A2 /* PlaceViewCell.swift */,
 				36232D7C1ED6BF880099E7A2 /* PlaceViewCell.xib */,
 				36232D861ED6C1960099E7A2 /* ASAnnotationView.swift */,
+				36232DA61ED6F8B40099E7A2 /* ASAnnotation.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -380,6 +386,9 @@
 						DevelopmentTeam = 9ZR854GD64;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Maps.iOS = {
 								enabled = 1;
 							};
@@ -599,9 +608,11 @@
 				36232D791ED6BF4F0099E7A2 /* Place.swift in Sources */,
 				36232DA31ED6ECA60099E7A2 /* CoordinatorManager.swift in Sources */,
 				36232D8B1ED6C3E90099E7A2 /* BaseViewController.swift in Sources */,
+				36232DA91ED6FA520099E7A2 /* UIView+Extension.swift in Sources */,
 				36232D461ED6BEDF0099E7A2 /* AppDelegate.swift in Sources */,
 				36232D7F1ED6BF960099E7A2 /* Utils.swift in Sources */,
 				36232D8D1ED6C5700099E7A2 /* ListPlaceViewController.swift in Sources */,
+				36232DA71ED6F8B40099E7A2 /* ASAnnotation.swift in Sources */,
 				36232D891ED6C3D20099E7A2 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

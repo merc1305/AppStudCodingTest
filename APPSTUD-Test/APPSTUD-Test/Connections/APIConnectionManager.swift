@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import RealmSwift
 
 let APIKey = "AIzaSyANmCgSYXr8m6g17pU_YF0PQ0FgbwT7Rb8"
 
@@ -19,10 +20,7 @@ enum URLName {
 }
 
 class APIConnectionManager {
-    
-    class func sharedInstance() -> APIConnectionManager {
-        return APIConnectionManager.init()
-    }
+    static let shared = APIConnectionManager()
     
     func urlString(urlName: URLName) -> String {
         switch urlName {
@@ -42,6 +40,7 @@ class APIConnectionManager {
         
     }
     
+    //Get Bars around current user location with 2KMs
     func getPlacesNear(location: Location, type: String, radius: Double, success: (([Place]) -> Void)?) {
         Alamofire.request(urlString(urlName: .SearchPlaceLocation), method: .get, parameters:["location": "\(location.lat), \(location.long)", "type": type, "radius": radius, "key": APIKey]).responseJSON { response in
             
@@ -49,6 +48,7 @@ class APIConnectionManager {
                 print("failure")
             } else {
                 if let jsons = ((response.result.value as! [String:Any])["results"] as? [[String:Any]]){
+                    print("json: \(jsons)")
                     var places = [Place]()
                     jsons.forEach({ (json) in
                         guard
@@ -58,15 +58,30 @@ class APIConnectionManager {
                         
                         let photoURL = self.urlString(urlName: .Photo(reference: ((json["photos"] as? [[String:Any]])?[0])?["photo_reference"] as? String ))
                         
-                        places.append(Place.init(dict: ["name":name, "location": location, "photoURL": photoURL]))
+                        let locationStruct = Location(dict: location as! [String : Double])
+                        
+                        let place = Place()
+                        place.name = name as? String
+                        place.photoURL = photoURL
+                        place.lat = locationStruct.lat
+                        place.long = locationStruct.long
+                        
+                        places.append(place)
                     })
                     
                     success?(places)
+                    
+                    let realm = try! Realm()
+                    try! realm.write {
+                        realm.deleteAll()
+                        realm.add(places)
+                    }
                 }
             }
         }
     }
     
+    //Get location by placeId
     func getLocationFor(placeId: String, success: (([Place]) -> Void)?) {
         Alamofire.request(urlString(urlName: .LocationForPlace), method: .get, parameters:["placeid": placeId, "key": APIKey]).responseJSON {
             response in
@@ -84,8 +99,8 @@ class APIConnectionManager {
         }
     }
     
+    //Search place
     func searchPlaces(input: String, success: (([Place]) -> Void)?) {
-        
         Alamofire.request(urlString(urlName: .SearchPlaceString), method: .get, parameters:["input":input, "types": "geocode", "key": APIKey]).responseJSON {
             response in
             if response.result.isFailure{

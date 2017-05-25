@@ -14,7 +14,7 @@ protocol LocationUpdateProtocol {
 }
 
 class ASLocationManager: NSObject {
-    static let sharedInstance = ASLocationManager()
+    static let shared = ASLocationManager()
     
     private var locationManager: CLLocationManager!
     var lastKnownCoordinate: CLLocationCoordinate2D

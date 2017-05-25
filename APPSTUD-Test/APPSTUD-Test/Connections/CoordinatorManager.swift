@@ -7,8 +7,11 @@
 //
 
 import Foundation
+import MapKit
 
 class CoordinatorManager { //TO start sync cross viewcontrollers
     static let shared = CoordinatorManager()
+    var currentLocation: CLLocationCoordinate2D?
+    var currentText: String?
     var places: [Place] = []
 }

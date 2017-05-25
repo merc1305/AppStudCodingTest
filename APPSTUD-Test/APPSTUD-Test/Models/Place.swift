@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Realm
+import RealmSwift
 
 struct Location {
     let lat: Double
@@ -23,15 +25,37 @@ struct Location {
     }
 }
 
-class Place {
-    let photoURL: String?
-    let name: String?
-    let location: Location
+class Place: Object {
+    dynamic var photoURL: String?
+    dynamic var name: String?
+    dynamic var lat: Double = 0.0
+    dynamic var long: Double = 0.0
     
-    init(dict: [String: Any]) {
-        photoURL = dict["photoURL"] as? String
-        name = dict["name"] as? String
-        location = Location.init(dict: dict["location"] as! [String : Double])
+//    var location: Location
+    
+//    init(dict: [String: Any]) {
+//        photoURL = dict["photoURL"] as? String
+//        name = dict["name"] as? String
+//        location = Location.init(dict: dict["location"] as! [String : Double])
+//    }
+    
+//    required init(value: Any, schema: RLMSchema) {
+//        fatalError("init(value:schema:) has not been implemented")
+//    }
+//
+//    required init() {
+//        fatalError("init() has not been implemented")
+//    }
+//
+//    required init(realm: RLMRealm, schema: RLMObjectSchema) {
+//        fatalError("init(realm:schema:) has not been implemented")
+//    }
+    
+    func deleteTicket() -> Void {
+        let realm = try! Realm()
+        try! realm.write {
+            realm.delete(self)
+        }
     }
 }
 
